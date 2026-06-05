@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rev. Nic Cable — Minister, Scholar, Civic Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1c1814;
+  --ink-mid: #3d3830;
+  --ink-muted: #7a7068;
+  --paper: #f9f6f1;
+  --paper-warm: #f2ece2;
+  --paper-deep: #e8e0d4;
+  --terra: #9c5a3c;
+  --terra-light: #c07a5a;
+  --terra-pale: #f0ddd4;
+  --gold: #9a7c45;
+  --rule: rgba(28,24,20,0.1);
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'DM Sans', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-body);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+nav.scrolled {
+  background: rgba(249,246,241,0.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--rule);
+}
+.nav-name {
+  font-family: var(--ff-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--terra); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55% 45%;
+}
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: sepia(8%) contrast(1.05);
+}
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 55%, var(--paper) 100%),
+              linear-gradient(to bottom, rgba(249,246,241,0.15) 0%, transparent 12%);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9rem 5rem 6rem 3rem;
+}
+
+.hero-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.1s forwards;
+}
+.hero-label::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--terra);
+  display: block;
+}
+
+.hero-name {
+  font-family: var(--ff-display);
+  font-size: clamp(3.8rem, 5.5vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.25s forwards;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--terra);
+}
+
+.hero-roles {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero-role {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  border: 1px solid var(--rule);
+  padding: 0.3rem 0.85rem;
+  border-radius: 2rem;
+  background: var(--paper-warm);
+}
+
+.hero-statement {
+  font-family: var(--ff-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  max-width: 36ch;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--terra-pale);
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.55s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.25rem;
+  text-decoration: none;
+  transition: background 0.25s;
+}
+.btn-primary:hover { background: var(--terra); }
+.btn-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+.btn-text:hover { color: var(--terra); }
+.btn-text::after { content: '→'; }
+
+/* SECTION SCAFFOLDING */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 4rem; }
+.section-pad { padding: 7rem 0; }
+
+.section-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: var(--terra);
+  display: block;
+}
+
+h2.heading {
+  font-family: var(--ff-display);
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+h2.heading em { font-style: italic; color: var(--terra); }
+
+/* WORK */
+.work-section { background: var(--paper-warm); }
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--rule);
+  margin-top: 4rem;
+}
+.work-card {
+  padding: 3.5rem;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  transition: background 0.3s;
+  cursor: default;
+}
+.work-card:nth-child(2n) { border-right: none; }
+.work-card:nth-last-child(-n+2) { border-bottom: none; }
+.work-card:hover { background: var(--paper); }
+.work-num {
+  font-family: var(--ff-display);
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--paper-deep);
+  line-height: 1;
+  position: absolute;
+  top: 2rem;
+  right: 2.5rem;
+  transition: color 0.3s;
+}
+.work-card:hover .work-num { color: var(--terra-pale); }
+.work-card h3 {
+  font-family: var(--ff-display);
+  font-size: 1.65rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.85rem;
+  line-height: 1.2;
+}
+.work-card p {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.85;
+  max-width: 42ch;
+}
+
+/* INTERSTITIAL */
+.interstitial {
+  background: var(--paper-deep);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 4rem 0;
+}
+.interstitial-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.interstitial-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+}
+.interstitial-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-left: 1px solid var(--rule);
+}
+.interstitial-card {
+  padding: 0 2.5rem;
+  border-right: 1px solid var(--rule);
+}
+.interstitial-card:last-child { border-right: none; }
+.interstitial-card h4 {
+  font-family: var(--ff-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.interstitial-card p {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--ink-muted);
+  line-height: 1.75;
+}
+
+/* ABOUT */
+.about-section { background: var(--ink); }
+.about-section .section-label,
+.about-section .section-label::before { color: var(--terra-light); background: var(--terra-light); }
+.about-section h2.heading { color: var(--paper); }
+.about-section h2.heading em { color: var(--terra-light); }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 7rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+.about-body p {
+  font-family: var(--ff-display);
+  font-size: 1.22rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(249,246,241,0.82);
+  margin-bottom: 1.75rem;
+}
+.about-body p strong { font-weight: 500; color: var(--paper); }
+.about-body p em { font-style: italic; color: rgba(249,246,241,0.95); }
+.about-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terra-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(192,122,90,0.3);
+  padding-bottom: 0.2rem;
+  margin-top: 0.5rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.about-link:hover { color: var(--paper); border-color: rgba(249,246,241,0.4); }
+.about-link::after { content: '↗'; }
+
+.about-sidebar {
+  padding-top: 0.5rem;
+}
+.about-stat {
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(249,246,241,0.08);
+}
+.about-stat:first-child { border-top: 1px solid rgba(249,246,241,0.08); }
+.about-stat-num {
+  font-family: var(--ff-display);
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--terra-light);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.about-stat-label {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(249,246,241,0.4);
+  line-height: 1.5;
+}
+
+/* RESEARCH */
+.research-section { background: var(--paper); }
+.research-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 7rem;
+  align-items: start;
+  margin-top: 4.5rem;
+}
+.research-sticky {
+  position: sticky;
+  top: 6rem;
+}
+.research-diss {
+  font-family: var(--ff-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+}
+.research-sub {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2.5rem;
+}
+.research-quote {
+  padding: 2rem 2.25rem;
+  background: var(--terra-pale);
+  border-left: 3px solid var(--terra);
+}
+.research-quote p {
+  font-family: var(--ff-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.research-quote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+
+.concepts {}
+.concept {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.concept:first-child { border-top: 1px solid var(--rule); }
+.concept-term {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--terra);
+  margin-bottom: 0.5rem;
+}
+.concept-def {
+  font-size: 0.87rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.85;
+}
+
+/* CAMPUS */
+.campus-section { background: var(--paper-warm); }
+.campus-intro {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  max-width: 62ch;
+  margin-top: 1.5rem;
+  margin-bottom: 4.5rem;
+}
+.communities {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--rule);
+  margin-bottom: 5rem;
+  background: var(--paper);
+}
+.community {
+  padding: 2.75rem 1.5rem;
+  border-right: 1px solid var(--rule);
+  text-align: center;
+  transition: background 0.2s;
+}
+.community:last-child { border-right: none; }
+.community:hover { background: var(--terra-pale); }
+.community-symbol { font-size: 1.75rem; display: block; margin-bottom: 1rem; }
+.community-name {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.community-note {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.campus-stories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+.campus-story h4 {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.65rem;
+}
+.campus-story p {
+  font-size: 0.86rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.85;
+}
+
+/* CONNECT */
+.connect-section { background: var(--terra); }
+.connect-section .section-label { color: rgba(249,246,241,0.55); }
+.connect-section .section-label::before { background: rgba(249,246,241,0.35); }
+.connect-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.connect-heading {
+  font-family: var(--ff-display);
+  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--paper);
+  margin-bottom: 1.75rem;
+}
+.connect-heading em { font-style: italic; }
+.connect-sub {
+  font-size: 0.93rem;
+  font-weight: 300;
+  color: rgba(249,246,241,0.72);
+  line-height: 1.8;
+  max-width: 40ch;
+}
+.connect-links { padding-top: 0.5rem; }
+.connect-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(249,246,241,0.18);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.connect-link:first-child { border-top: 1px solid rgba(249,246,241,0.18); }
+.connect-link:hover { border-color: rgba(249,246,241,0.45); }
+.connect-link-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(249,246,241,0.45);
+  margin-bottom: 0.2rem;
+}
+.connect-link-name {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--paper);
+}
+.connect-arrow {
+  font-size: 1.1rem;
+  color: rgba(249,246,241,0.35);
+  transition: color 0.2s, transform 0.2s;
+}
+.connect-link:hover .connect-arrow {
+  color: var(--paper);
+  transform: translate(3px, -3px);
+}
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  padding: 2.5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-name {
+  font-family: var(--ff-display);
+  font-size: 0.95rem;
+  color: rgba(249,246,241,0.35);
+}
+.footer-copy {
+  font-size: 0.7rem;
+  color: rgba(249,246,241,0.2);
+  letter-spacing: 0.08em;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: 60vh auto; }
+  .hero-image { height: 60vh; }
+  .hero-image::after { background: linear-gradient(to bottom, transparent 65%, var(--paper) 100%); }
+  .hero-content { padding: 3rem 1.5rem 5rem; }
+  .container { padding: 0 1.5rem; }
+  .section-pad { padding: 5rem 0; }
+  .work-grid { grid-template-columns: 1fr; }
+  .work-card { border-right: none !important; }
+  .interstitial-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .interstitial-cards { grid-template-columns: 1fr; border-left: none; }
+  .interstitial-card { padding: 1.5rem 0; border-right: none; border-bottom: 1px solid var(--rule); }
+  .about-layout, .research-layout, .connect-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .research-sticky { position: static; }
+  .communities { grid-template-columns: repeat(3, 1fr); }
+  .community:nth-child(3) { border-right: none; }
+  .community:nth-child(n+4) { border-top: 1px solid var(--rule); }
+  .campus-stories { grid-template-columns: 1fr; gap: 2rem; }
+  footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-name">Rev. Nic Cable</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#campus">Campus</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-image">
+    <img src="https://raw.githubusercontent.com/uucci-min/revcable/main/IMG_7682.jpg" alt="Rev. Nic Cable">
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">Columbus, Indiana</div>
+    <h1 class="hero-name">Rev.<br><em>Nic</em><br>Cable</h1>
+    <div class="hero-roles">
+      <span class="hero-role">Minister</span>
+      <span class="hero-role">Scholar</span>
+      <span class="hero-role">Civic Leader</span>
+    </div>
+    <p class="hero-statement">I help people imagine — and build — the world they actually want to live in.</p>
+    <div class="hero-actions">
+      <a href="#connect" class="btn-primary">Get in Touch</a>
+      <a href="https://revcable.substack.com" target="_blank" class="btn-text">Notes from Mt. Horeb</a>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work-section section-pad" id="work">
+  <div class="container">
+    <div class="section-label reveal">The Work</div>
+    <h2 class="heading reveal reveal-d1">One vision.<br><em>Many expressions.</em></h2>
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <span class="work-num">01</span>
+        <h3>Ministry</h3>
+        <p>Senior Minister of the Unitarian Universalist Congregation of Columbus, Indiana — grounded in covenantal community, prophetic preaching, and the long, faithful work of congregational transformation.</p>
+      </div>
+      <div class="work-card reveal reveal-d1">
+        <span class="work-num">02</span>
+        <h3>Scholarship</h3>
+        <p>Completing a Doctor of Ministry with a constructive theology of contextual pluralism — arguing that human beings are constitutively shaped for multiplicity, and that covenant is only possible in it.</p>
+      </div>
+      <div class="work-card reveal reveal-d2">
+        <span class="work-num">03</span>
+        <h3>Interfaith Leadership</h3>
+        <p>Co-steward of the Columbus Interfaith Campus — eight shared acres where five distinct faith communities are building something together that didn't exist before and points toward what could.</p>
+      </div>
+      <div class="work-card reveal reveal-d3">
+        <span class="work-num">04</span>
+        <h3>Civic Voice</h3>
+        <p>Speaker, facilitator, and organizational consultant for communities navigating difference. Helping build the civic infrastructure Columbus — and communities like it — need to become what they aspire to be.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERSTITIAL -->
+<div class="interstitial">
+  <div class="container">
+    <div class="interstitial-inner reveal">
+      <p class="interstitial-label">Available for</p>
+      <div class="interstitial-cards">
+        <div class="interstitial-card">
+          <h4>Speaking</h4>
+          <p>Congregations, civic organizations, conferences, and interfaith gatherings on pluralism, theology, and community.</p>
+        </div>
+        <div class="interstitial-card">
+          <h4>Consulting</h4>
+          <p>Organizational discernment, congregational transitions, and communities navigating difference and change.</p>
+        </div>
+        <div class="interstitial-card">
+          <h4>Officiating</h4>
+          <p>Weddings, memorials, and life ceremonies — designed with care for the people and the moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section section-pad" id="about">
+  <div class="container">
+    <div class="section-label reveal">About</div>
+    <h2 class="heading reveal reveal-d1">Rooted here.<br><em>Reaching further.</em></h2>
+    <div class="about-layout">
+      <div class="about-body reveal reveal-d2">
+        <p>For Unitarian Universalists, the local congregation and the wider community <strong>shape one another</strong>. That's always been true of my ministry.</p>
+        <p>I live in Columbus, Indiana with my family — and I love it enough to want to <em>change it for the better</em>. That conviction is what drew me to the Columbus Interfaith Campus, eight acres on the west side of the city where five faith communities are building something together — a glimpse, I believe, of what a genuinely pluralistic society can actually look like.</p>
+        <p>I write regularly about the theology and practice of living across difference. The newsletter is called <em>Notes from Mt. Horeb</em> — after the place where Moses encountered a burning bush that burned without being consumed. That image does a lot of work for me.</p>
+        <a href="https://revcable.substack.com" target="_blank" class="about-link">Read Notes from Mt. Horeb</a>
+      </div>
+      <div class="about-sidebar reveal reveal-d3">
+        <div class="about-stat">
+          <div class="about-stat-num">5</div>
+          <div class="about-stat-label">Faith communities on the Columbus Interfaith Campus</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">8</div>
+          <div class="about-stat-label">Shared acres in Columbus, Indiana</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">2030</div>
+          <div class="about-stat-label">Strategic vision horizon — Imagine 2030</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">∞</div>
+          <div class="about-stat-label">Conversations worth having</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="research-section section-pad" id="research">
+  <div class="container">
+    <div class="section-label reveal">Doctoral Research</div>
+    <h2 class="heading reveal reveal-d1">Encountering<br><em>Multitudes</em></h2>
+    <div class="research-layout">
+      <div class="research-sticky reveal reveal-d2">
+        <p class="research-diss">Encountering Multitudes: Toward a UU Theology of Contextual Pluralism</p>
+        <p class="research-sub">Doctor of Ministry Dissertation · In Progress</p>
+        <div class="research-quote">
+          <p>Covenant is only possible in multiplicity. We do not covenant with mirrors.</p>
+          <cite>— From the dissertation</cite>
+        </div>
+      </div>
+      <div class="concepts reveal reveal-d3">
+        <div class="concept">
+          <div class="concept-term">Contextual Pluralism</div>
+          <p class="concept-def">A theological framework holding that genuine encounter with difference is not a problem to manage but the constitutive condition of human flourishing — and of faithful community.</p>
+        </div>
+        <div class="concept">
+          <div class="concept-term">Polyphilic Anthropology</div>
+          <p class="concept-def">The constructive claim that human beings are, by nature, beings shaped for multiplicity. We are not monophilic creatures who merely tolerate difference — we require it to become fully ourselves.</p>
+        </div>
+        <div class="concept">
+          <div class="concept-term">Resilient Porosity</div>
+          <p class="concept-def">The capacity of a community — or a person — to remain genuinely open to the other without losing coherence. Porosity without resilience dissolves. Resilience without porosity hardens.</p>
+        </div>
+        <div class="concept">
+          <div class="concept-term">Nepantla &amp; the Burning Bush</div>
+          <p class="concept-def">Drawing on Anzaldúa's nepantla — the in-between threshold space — and Exodus 3, the project reads pluralism as a site of revelation rather than threat. Fire that does not consume.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS -->
+<section class="campus-section section-pad" id="campus">
+  <div class="container">
+    <div class="section-label reveal">Columbus Interfaith Campus</div>
+    <h2 class="heading reveal reveal-d1">Eight acres.<br><em>Five traditions.</em><br>One covenant.</h2>
+    <p class="campus-intro reveal reveal-d2">On the west side of Columbus, Indiana, something unusual has taken root. Five distinct faith communities share eight acres — not as tenants, but as co-stewards of a living experiment in what pluralism looks like when it's embodied rather than merely declared.</p>
+    <div class="communities reveal reveal-d3">
+      <div class="community">
+        <span class="community-symbol">☯</span>
+        <div class="community-name">Unitarian Universalist</div>
+        <div class="community-note">Covenantal liberal faith</div>
+      </div>
+      <div class="community">
+        <span class="community-symbol">🕉</span>
+        <div class="community-name">Hindu</div>
+        <div class="community-note">Sanatan dharma</div>
+      </div>
+      <div class="community">
+        <span class="community-symbol">☸</span>
+        <div class="community-name">Buddhist</div>
+        <div class="community-note">Contemplative practice</div>
+      </div>
+      <div class="community">
+        <span class="community-symbol">✡</span>
+        <div class="community-name">Jewish</div>
+        <div class="community-note">Torah and tradition</div>
+      </div>
+      <div class="community">
+        <span class="community-symbol">🌿</span>
+        <div class="community-name">Pagan</div>
+        <div class="community-note">Earth-centered spirituality</div>
+      </div>
+    </div>
+    <div class="campus-stories">
+      <div class="campus-story reveal">
+        <h4>New Tech High School Visit</h4>
+        <p>CSA students came to the campus as part of a civic education program — encountering five traditions in one afternoon, discovering that difference doesn't require distance.</p>
+      </div>
+      <div class="campus-story reveal reveal-d1">
+        <h4>Columbus Interfaith Peace Camp</h4>
+        <p>Children from multiple traditions spend a week together each summer, building the habits of encounter early — before fear has had a chance to calcify into prejudice.</p>
+      </div>
+      <div class="campus-story reveal reveal-d2">
+        <h4>Bridge Builders Summit</h4>
+        <p>"Strangers at the Gate" brought civic and faith leaders together to ask what it actually means to welcome difference — not as a policy question, but as a spiritual one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="connect-section section-pad" id="connect">
+  <div class="container">
+    <div class="section-label reveal">Connect</div>
+    <div class="connect-layout">
+      <div class="reveal reveal-d1">
+        <h2 class="connect-heading">Let's be in<br><em>conversation.</em></h2>
+        <p class="connect-sub">Whether you're thinking about a speaking invitation, a consulting engagement, an interfaith collaboration, or just want to follow the work — I'm glad you're here.</p>
+      </div>
+      <div class="connect-links reveal reveal-d2">
+        <a href="mailto:nic@revcable.org" class="connect-link">
+          <div>
+            <div class="connect-link-label">Email</div>
+            <div class="connect-link-name">nic@revcable.org</div>
+          </div>
+          <span class="connect-arrow">↗</span>
+        </a>
+        <a href="https://revcable.substack.com" target="_blank" class="connect-link">
+          <div>
+            <div class="connect-link-label">Newsletter</div>
+            <div class="connect-link-name">Notes from Mt. Horeb</div>
+          </div>
+          <span class="connect-arrow">↗</span>
+        </a>
+        <a href="https://uucci.org" target="_blank" class="connect-link">
+          <div>
+            <div class="connect-link-label">Congregation</div>
+            <div class="connect-link-name">UUCCI — Columbus, Indiana</div>
+          </div>
+          <span class="connect-arrow">↗</span>
+        </a>
+        <a href="mailto:nic@revcable.org" class="connect-link">
+          <div>
+            <div class="connect-link-label">Speaking &amp; Consulting</div>
+            <div class="connect-link-name">Start a conversation</div>
+          </div>
+          <span class="connect-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Rev. Nic Cable</span>
+  <span class="footer-copy">© 2026 · Columbus, Indiana</span>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
