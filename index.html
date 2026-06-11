@@ -678,7 +678,7 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
-nav { padding: 1rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; }
   .nav-toggle { display: flex; }
   .nav-links {
     position: fixed;
@@ -697,9 +697,6 @@ nav { padding: 1rem 1.5rem; }
     pointer-events: none;
     transition: opacity 0.25s ease;
     display: flex;
-    .work-card:last-child {
-  grid-column: span 1;
-}
   }
   nav.menu-open .nav-links {
     opacity: 1;
@@ -717,6 +714,7 @@ nav { padding: 1rem 1.5rem; }
   .section-pad { padding: 5rem 0; }
   .work-grid { grid-template-columns: 1fr; }
   .work-card { border-right: none !important; }
+  .work-card:last-child { grid-column: span 1; }
   .interstitial-inner { grid-template-columns: 1fr; gap: 2rem; }
   .interstitial-cards { grid-template-columns: 1fr; border-left: none; }
   .interstitial-card { padding: 1.5rem 0; border-right: none; border-bottom: 1px solid var(--rule); }
@@ -728,9 +726,6 @@ nav { padding: 1rem 1.5rem; }
   .campus-stories { grid-template-columns: 1fr; gap: 2rem; }
   footer { flex-direction: column; gap: 0.75rem; text-align: center; }
 }
-</style>
-</head>
-<body>
 
 <!-- NAV -->
 <nav id="nav">
