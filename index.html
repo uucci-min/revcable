@@ -304,6 +304,9 @@ h2.heading em { font-style: italic; color: var(--terra); }
 .work-card:last-child {
   grid-column: span 2;
 }
+  .work-card:last-child p {
+  max-width: 72ch;
+}
 .work-card:hover { background: var(--paper); }
 .work-num {
   font-family: var(--ff-display);
@@ -694,6 +697,9 @@ nav { padding: 1rem 1.5rem; }
     pointer-events: none;
     transition: opacity 0.25s ease;
     display: flex;
+    .work-card:last-child {
+  grid-column: span 1;
+}
   }
   nav.menu-open .nav-links {
     opacity: 1;
