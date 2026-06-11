@@ -301,6 +301,9 @@ h2.heading em { font-style: italic; color: var(--terra); }
 }
 .work-card:nth-child(2n) { border-right: none; }
 .work-card:nth-last-child(-n+2) { border-bottom: none; }
+  .work-card:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
 .work-card:hover { background: var(--paper); }
 .work-num {
   font-family: var(--ff-display);
@@ -353,7 +356,7 @@ h2.heading em { font-style: italic; color: var(--terra); }
 }
 .interstitial-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-left: 1px solid var(--rule);
 }
 .interstitial-card {
@@ -785,6 +788,11 @@ nav { padding: 1rem 1.5rem; }
         <h3>Civic Leadership</h3>
         <p>Connector and civic leader working toward Columbus becoming a community for all — serving on nonprofit boards and committees including the Columbus Regional Health Foundation and Turning Point Domestic Violence Services, and actively supporting <a href="https://questcolumbus.org" target="_blank" style="color: var(--terra); text-decoration: underline;">Quest Columbus</a>.</p>
       </div>
+      <div class="work-card reveal reveal-d4">
+  <span class="work-num">05</span>
+  <h3>Spiritual Care</h3>
+  <p>You don't have to belong to a congregation — or any tradition — to deserve care at the hardest moments. I offer presence, listening, and accompaniment for individuals and families navigating grief, loss, life transition, and the questions that don't fit neatly anywhere else. Whatever your background or belief, you are not alone on this journey.</p>
+</div>
     </div>
   </div>
 </section>
@@ -807,6 +815,10 @@ nav { padding: 1rem 1.5rem; }
           <h4>Officiating</h4>
           <p>Weddings, memorials, and life ceremonies — designed with care for the people and the moment.</p>
         </div>
+        <div class="interstitial-card">
+  <h4>Spiritual Care</h4>
+  <p>Presence, listening, and accompaniment for individuals and families facing grief, loss, or life transition — regardless of tradition or belief.</p>
+</div>
       </div>
     </div>
   </div>
